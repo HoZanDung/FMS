@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface IUserService {
 
+    public void add(HttpServletRequest request);
+
     public void update(long id, HttpServletRequest request);
 
     public void delete(long id);

@@ -28,8 +28,23 @@ public class UserServiucImpl implements IUserService {
     SysRoleRepository roleRepository;
 
     @Override
+    public void add(HttpServletRequest request) {
+        SysUser user = new SysUser();
+        user.setUsername(request.getParameterMap().get("name")[0]);
+        user.setPassword(request.getParameterMap().get("password")[0]);
+        SysRole role = roleRepository.findOne(Long.parseLong(request.getParameterMap().get("role_id")[0]));
+        // 传入的role_id无效
+        if(role == null) return;
+        List<SysRole> sysRoles = new LinkedList<>();
+        sysRoles.add(role);
+        user.setRoles(sysRoles);
+        userRepository.save(user);
+    }
+
+    @Override
     public void update(long id, HttpServletRequest request) {
         SysUser user = userRepository.findOne(id);
+        if (user == null) return;
         user.setUsername(request.getParameterMap().get("name")[0]);
         user.setPassword(request.getParameterMap().get("password")[0]);
         SysRole role = roleRepository.findOne(Long.parseLong(request.getParameterMap().get("role_id")[0]));
