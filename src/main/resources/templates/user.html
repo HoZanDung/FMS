@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 	<meta charset="utf-8" />
 	<link rel="icon" type="image/png" href="/img/favicon.ico"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Light Bootstrap Dashboard by Creative Tim</title>
+	<title>HoZanDung-Website</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -40,8 +41,8 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
+                <a href="#" class="simple-text">
+                    HoZanDung
                 </a>
             </div>
 
@@ -276,6 +277,27 @@
                 <!--</div>-->
             <!--</div>-->
             <h1>用户管理内容</h1>
+            <table class="table table-hover table-bordered table-condensed">
+                <tbody>
+                <tr>
+                    <th>用户id</th>
+                    <th>用户名</th>
+                    <th>用户权限</th>
+                    <th>操作</th>
+                </tr>
+                <!--<tr sec:authorize="hasRole('ROLE_USER')">-->
+                    <!--<td class="text" th:text="${principal.principal.id}"></td>-->
+                    <!--<td class="text" th:text="${principal.principal.username}"></td>-->
+                    <!--<td class="text" th:text="${user_role}"></td>-->
+                    <!--&lt;!&ndash;<td><a href="/update">修改</a></td>&ndash;&gt;-->
+                <!--</tr>-->
+                <tr th:each="aaa:${userList}">
+                    <td th:text="${aaa.id}"></td>
+                    <td th:text="${aaa.username}"></td>
+                    <td th:each="bbb:${aaa.roles}" th:text="${bbb.name}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
 

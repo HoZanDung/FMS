@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+</head>
+<body>
+<div class="container">
+    <div class="starter-template">
+        <h1 th:text="${msg.title}"></h1>
+        <p class="bg-primary" th:text="${msg.content}"></p>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <a href="/dashboard">admin能看得到进入管理后台的入口!</a>
+        </div>
+        <div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+            <a href="/dashboard">user能看得到进入系统!</a>
+        </div>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" class="btn btn-primary" value="注销"/>
+        </form>
+    </div>
+    <a th:href="@{/logout}">测试有没有调用/logout</a>
+    <p th:text="'Hello '+'现在登录的用户id是'+${principal.principal.id}+'!'+'用户名为'+${principal.principal.username}" ></p>
+</div>
+
+</body>
+</html>
