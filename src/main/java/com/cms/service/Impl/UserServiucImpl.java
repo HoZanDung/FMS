@@ -44,7 +44,5 @@ public class UserServiucImpl implements IUserService {
     @Override
     public void delete(long id) {
         userRepository.delete(id);
-        userRepository.flush();
-
     }
 }
