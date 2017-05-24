@@ -5,7 +5,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,33 +13,93 @@ import java.util.List;
  * Created by HOZANDUNG on 17/5/10.
  */
 @Entity
-public class SysUser implements UserDetails,Serializable {
+public class SysUser extends BaseModel implements UserDetails {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    private static final String DEFAULT_AVATAR = "http://gdpujf-1252890037.cosgz.myqcloud.com/WechatIMG16670.jpeg";
 
+    @Column(unique = true, nullable = false)
     private String username;
 
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String realname;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false, unique = true)
+    private String phone;
+
+    @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false)
+    private String avatar = DEFAULT_AVATAR;
 
     @ManyToMany(cascade = {CascadeType.REFRESH},fetch = FetchType.EAGER)
     private List<SysRole> roles;
 
-    public Long getId() {
-        return id;
+    public SysUser(){
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public String getUsername() {
+        return this.username;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public List<SysRole> getRoles() {
@@ -59,16 +118,6 @@ public class SysUser implements UserDetails,Serializable {
             auths.add(new SimpleGrantedAuthority(role.getName()));
         }
         return auths;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
     }
 
     @Override

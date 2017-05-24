@@ -1,33 +1,18 @@
 package com.cms.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by HOZANDUNG on 17/5/10.
  */
 @Entity
-public class SysRole implements Serializable {
-
-//    private static final long serialVersionUID = 614060023971248607L;
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class SysRole extends BaseModel {
 
     private String name;
 
-//    @ManyToMany(cascade = {CascadeType.REFRESH},fetch = FetchType.EAGER)
-//    private List<SysUser> users;
+    private String description;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public SysRole() {
     }
 
     public String getName() {
@@ -38,13 +23,12 @@ public class SysRole implements Serializable {
         this.name = name;
     }
 
-//    public List<SysUser> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(List<SysUser> users) {
-//        this.users = users;
-//    }
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }
