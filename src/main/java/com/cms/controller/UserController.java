@@ -1,7 +1,7 @@
 package com.cms.controller;
 
-import com.cms.service.Impl.UserServiucImpl;
-import com.cms.util.MapUtil;
+import com.cms.service.Impl.UserServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,27 +15,66 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired UserServiucImpl userServiuc;
+    @Autowired
+    UserServiceImpl userService;
 
-    @Autowired MapUtil mapUtil;
-
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public String add(HttpServletRequest request) {
-        userServiuc.add(request);
-        return "调用了update,POST方法,插入操作";
+    /**
+     *
+     * @param id
+     * @return 单个用户信息
+     */
+    @RequestMapping(value = "/findOne/{id}", method = RequestMethod.GET)
+    public Map<String, Object> get(@PathVariable Long id) {
+        return userService.findOne(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public String update(@PathVariable Long id,HttpServletRequest request) {
-        userServiuc.update(id,request);
-        return "调用了update,PUT方法,更新操作";
+    /**
+     *
+     * @param page
+     * @param size
+     * @return 所有用户信息
+     */
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
+    public Map index(@RequestParam(value = "page", defaultValue = "0") int page,
+                     @RequestParam(value = "size", defaultValue = "10") int size) {
+        return userService.index(page, size);
     }
 
+    /**
+     * 添加操作
+     * @param request
+     */
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    public void create(HttpServletRequest request) {
+        userService.create(request);
+    }
+
+    /**
+     * 删除操作
+     * @param id
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable("id") Long id) {
-        userServiuc.delete(id);
-        return "update,DELETE方法,删除操作";
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
     }
 
+    /**
+     * 恢复操作
+     * @param id
+     */
+    @RequestMapping(value = "/recovery/{id}", method = RequestMethod.PUT)
+    public void recovery(@PathVariable Long id) {
+        userService.recovery(id);
+    }
+
+    /**
+     * 更新操作
+     * @param id
+     * @param request
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public void update(@PathVariable Long id, HttpServletRequest request) {
+        userService.update(request, id);
+    }
 
 }

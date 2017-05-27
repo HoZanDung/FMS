@@ -7,11 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "sys_content")
-public class SysContent {
-
-    @Id
-    @GeneratedValue
-    private int id;
+public class SysContent extends BaseEntity {
 
     @Column(name = "userid",nullable = false)
     private int userid;
@@ -36,14 +32,6 @@ public class SysContent {
     @Column(name = "file_path",nullable = true)
     private String file_path;
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getUserid() {
         return userid;

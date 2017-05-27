@@ -42,4 +42,33 @@ public class InvokeUtil<M extends BaseModel> {
     }
 
 
+    public void setFieldValue(M m, String name, Object value) {
+        try {
+            Field field;
+            try {
+                field = m.getClass().getDeclaredField(name);
+            } catch (NoSuchFieldException e) {
+                // 之所以有三层嵌套是因为我的实体最多的继承****-BaseEntity-BaseModel
+                try {
+                    field = m.getClass().getSuperclass().getDeclaredField(name);
+                } catch (NoSuchFieldException e1) {
+                    try {
+                        field = m.getClass().getSuperclass().getSuperclass().getDeclaredField(name);
+                    } catch (NoSuchFieldException e2) {
+                        return;
+                    }
+                }
+            }
+            field.setAccessible(true);
+            try {
+                field.set(m, value);
+            } catch (IllegalArgumentException e) {
+                field.setInt(m, Integer.parseInt(String.valueOf(value)));
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

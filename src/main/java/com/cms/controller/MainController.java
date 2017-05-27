@@ -2,6 +2,7 @@ package com.cms.controller;
 
 import com.cms.repository.SysUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 
 /**
  * Created by HOZANDUNG on 17/5/4.
@@ -11,6 +12,10 @@ public class MainController {
 
     @Autowired
     SysUserRepository sysUserRepository;
+
+    public String testV(BindingResult result) {
+        return "";
+    }
 
     //------------------------华丽的分割线------------------------
 

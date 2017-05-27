@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Entity
 public class SysRole extends BaseModel {
 
+    private static final long serialVersionUID = 614060023971248607L;
+
     private String name;
 
     private String description;

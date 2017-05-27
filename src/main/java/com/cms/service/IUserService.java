@@ -1,5 +1,7 @@
 package com.cms.service;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -7,10 +9,18 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface IUserService {
 
-    public void add(HttpServletRequest request);
+    Map index(int page, int size);
 
-    public void update(long id, HttpServletRequest request);
+    Map<String, Object> findOne(Long id);
 
-    public void delete(long id);
+    void create(HttpServletRequest request);
+
+    void delete(Long id);
+
+    void update(HttpServletRequest request, Long id);
+
+    void destroy(Long id);
+
+    void recovery(Long id);
 
 }
