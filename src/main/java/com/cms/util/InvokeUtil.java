@@ -46,7 +46,7 @@ public class InvokeUtil<M extends BaseModel> {
         try {
             Field field;
             try {
-                field = m.getClass().getDeclaredField(name);
+                field = m.getClass().getDeclaredField(name);//得到类的属性
             } catch (NoSuchFieldException e) {
                 // 之所以有三层嵌套是因为我的实体最多的继承****-BaseEntity-BaseModel
                 try {
@@ -59,6 +59,7 @@ public class InvokeUtil<M extends BaseModel> {
                     }
                 }
             }
+            //accessible 标志允许具有足够特权的复杂应用程序（比如 Java Object Serialization 或其他持久性机制）以某种通常禁止使用的方式来操作对象。
             field.setAccessible(true);
             try {
                 field.set(m, value);
