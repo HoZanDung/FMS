@@ -11,16 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class FilePresenter extends BasePresenter<SysContent> {
 
-    private String[] toCreate = {"author", "category", "title", "content"};
+    private String[] toCreate = {"category", "title", "content","author"};
 
+    private String[] toUpdate = {"category","title","content","author"};
     @Override
     public SysContent toCreate(HttpServletRequest request) {
-        SysContent content = mapToObject(new SysContent(),toCreate,request);
-        return content;
+        SysContent sysContent = mapToObject(new SysContent(),toCreate,request);
+        return sysContent;
     }
 
     @Override
     public SysContent toUpdate(HttpServletRequest request, SysContent sysContent) {
-        return null;
+        sysContent = mapToObject(sysContent,toUpdate,request);
+        return sysContent;
     }
 }

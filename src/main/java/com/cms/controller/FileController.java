@@ -58,4 +58,32 @@ public class FileController {
         return fileService.upload(file,request);
     }
 
+    /**
+     * 删除操作
+     * @param id
+     */
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    public void delete(@PathVariable Long id) { fileService.delete(id); }
+
+    /**
+     * 恢复操作
+     * @param id
+     */
+    @RequestMapping(value = "/recovery/{id}", method = RequestMethod.PUT)
+    public void recovery(@PathVariable Long id) {
+        fileService.recovery(id);
+    }
+
+
+    /**
+     * 更新操作
+     * @param id
+     * @param request
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public void update(@PathVariable Long id, HttpServletRequest request) {
+        fileService.update(request, id);
+    }
+
+
 }
