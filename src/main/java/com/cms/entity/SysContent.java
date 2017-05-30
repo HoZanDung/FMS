@@ -9,9 +9,6 @@ import javax.persistence.*;
 @Table(name = "sys_content")
 public class SysContent extends BaseEntity {
 
-    @Column(name = "userid",nullable = false)
-    private int userid;
-
     @Column(name = "category")
     private int category;
 
@@ -25,21 +22,10 @@ public class SysContent extends BaseEntity {
     @Column(name = "author")
     private String author;
 
-    @Lob
-    @Column(name = "time")
-    private String time;
 
     @Column(name = "file_path",nullable = true)
     private String file_path;
 
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
 
     public int getCategory() {
         return category;
@@ -73,13 +59,6 @@ public class SysContent extends BaseEntity {
         this.author = author;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
 
     public String getFile_path() {
         return file_path;
