@@ -1,5 +1,6 @@
 package com.cms.service.Impl;
 
+import com.cms.Presenter.FilePresenter;
 import com.cms.entity.SysContent;
 import com.cms.entity.SysUser;
 import com.cms.repository.SysContentRepository;
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -21,22 +24,21 @@ import java.util.UUID;
  * Created by HOZANDUNG on 17/5/8.
  */
 @Service
-public class FileServiceImpl implements IFileService {
+public class FileServiceImpl extends BaseServiceImpl<SysContent,SysContentRepository,FilePresenter>  implements IFileService {
 
     @Value("${upload.file.path}")
     private String filePath;
 
-    @Autowired
-    private SysContentRepository contentRepository;
+    @Autowired FilePresenter presenter;
 
 
     @Override
-    public String upload(MultipartFile file, int userid, String author, int category, String content, String title) {
+    public Map upload(MultipartFile file, HttpServletRequest request) {
         //实例化neientity
         SysContent sysContent = new SysContent();
         //判断文件是否为空
         if (file.isEmpty()) {
-            return "文件为空";
+            System.out.println("文件为空");
         }
         // 获取文件名
         String fileName = file.getOriginalFilename();
@@ -57,25 +59,17 @@ public class FileServiceImpl implements IFileService {
         try {
             //上传
             file.transferTo(dest);
-            //获取当前时间
-            Date d = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String today = sdf.format(d);
-            //上传后将信息录入数据库并输出上传成功的时间
-            sysContent.setUserid(userid);
-            sysContent.setAuthor(author);
-            sysContent.setCategory(category);
-            sysContent.setContent(content);
-            sysContent.setTitle(title);
-            sysContent.setTime(today);
-            sysContent.setFile_path(fileName);
-            contentRepository.save(sysContent);
-            return today + "-" + fileName + "-" + "上传成功";
+            //上传后将信息录入数据库
+            SysContent content = presenter.toCreate(request);
+            content.setFile_path(filePath+fileName);
+            presenter.setCreateInfo(request,content);
+            save(request,content);
         } catch (IllegalStateException e) {
-            return "文件过大,内存溢出异常";
+            System.out.println("异常,还没写");
         } catch (IOException e) {
-            return "文件路径错误,IO异常";
+            System.out.println("异常,还没写");
         }
+        return null;
     }
 
     @Override

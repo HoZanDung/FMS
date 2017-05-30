@@ -32,7 +32,7 @@ public class UserController {
      *
      * @param page
      * @param size
-     * @return 所有用户信息
+     * @return 分页查找所有用户信息
      */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public Map index(@RequestParam(value = "page", defaultValue = "0") int page,
