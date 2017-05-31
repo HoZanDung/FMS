@@ -2,6 +2,7 @@ package com.cms.entity;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,7 +40,7 @@ public class SysUser extends BaseModel implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @NotBlank(message = "邮箱不能为空")
+    @NotBlank(message = "手机号码不能为空")
     @Pattern(regexp = "^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",message = "必须输入手机号码")
     @Column(nullable = false, unique = true)
     private String phone;

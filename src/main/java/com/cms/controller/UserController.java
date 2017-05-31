@@ -59,7 +59,7 @@ public class UserController {
     }
 
     /**
-     * 恢复操作
+     * 恢复操作e
      * @param id
      */
     @RequestMapping(value = "/recovery/{id}", method = RequestMethod.PUT)

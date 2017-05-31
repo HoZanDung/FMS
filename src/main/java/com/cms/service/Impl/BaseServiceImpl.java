@@ -1,6 +1,7 @@
 package com.cms.service.Impl;
 
 import com.cms.Presenter.BasePresenter;
+import com.cms.Validation.MyValidation;
 import com.cms.entity.BaseModel;
 import com.cms.repository.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,7 @@ public abstract class BaseServiceImpl<M extends BaseModel,R extends BaseReposito
     public void create(HttpServletRequest request) {
         M m = presenter.toCreate(request);
         presenter.setCreateInfo(request, m);
+        validator(m);
         save(request, m);
     }
 
@@ -132,8 +134,9 @@ public abstract class BaseServiceImpl<M extends BaseModel,R extends BaseReposito
      * @param m
      * @return
      */
-    public void validator(@Valid M m) {
-
+    public void validator(M m) {
+        MyValidation<M> validation = new MyValidation<M>();
+        validation.ValidatorDate(m);
     }
 
 }
