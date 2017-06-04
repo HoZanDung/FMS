@@ -22,7 +22,7 @@ public class MyValidation<M extends BaseModel> {
         validator = factory.getValidator();
     }
 
-    public void ValidatorDate(M m) {
+    public void ValidatorData(M m) {
         Set<ConstraintViolation<M>> violations = validator.validate(m);
         if(violations.size() == 0) {
             System.out.println("没想到先写着");

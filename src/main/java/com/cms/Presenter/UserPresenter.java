@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HOZANDUNG on 17/5/25.
@@ -22,6 +23,19 @@ public class UserPresenter extends BasePresenter<SysUser> {
     private String[] toCreate = {"username", "password", "email", "address", "phone", "avatar", "realname"};
 
     private String[] toUpdate = {"password", "email", "address", "phone", "avatar", "realname"};
+
+    private String[] toFind = {"id" ,"username", "email", "address", "phone", "avatar", "realname","roles"};
+
+
+    /**
+     * 查找出来用户的属性
+     * @param sysUser
+     * @return
+     */
+    @Override
+    public Map objectToMap(SysUser sysUser) {
+        return transform(sysUser,toFind,true);
+    }
 
     /**
      * 根据request生成实体对象

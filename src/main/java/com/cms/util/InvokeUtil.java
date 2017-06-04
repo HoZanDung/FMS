@@ -19,7 +19,11 @@ import java.util.Map;
 @Component
 public class InvokeUtil<M extends BaseModel> {
 
-
+    /**
+     * 获取传入类的所有属性,不包括父类即BaseModel
+     * @param m
+     * @return
+     */
     public Map getFieldsValue(M m) {
         Class clazz = m.getClass();
         Field[] fields = m.getClass().getDeclaredFields();//获得属性
@@ -42,6 +46,48 @@ public class InvokeUtil<M extends BaseModel> {
     }
 
 
+    /**
+     * 获取传入类的属性,根据String[]设置的属性名去获取,可控
+     * @param m
+     * @param field
+     * @return
+     */
+    public Object getFieldValue(M m, String field) {
+        try {
+            Class clazz = m.getClass();
+            Field declaredField = null;
+            try {
+                declaredField = clazz.getDeclaredField(field);
+            } catch (NoSuchFieldException e) {
+                try {
+                    declaredField = clazz.getSuperclass().getDeclaredField(field);
+                } catch (NoSuchFieldException e1) {
+                    try {
+                        declaredField = clazz.getSuperclass().getSuperclass().getDeclaredField(field);
+                    } catch (NoSuchFieldException e2) {
+                        return null;
+                    }
+                }
+            }
+            declaredField.setAccessible(true);
+            return declaredField.get(m);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
+     *
+     * @param m
+     * @param name
+     * @param value
+     */
     public void setFieldValue(M m, String name, Object value) {
         try {
             Field field;

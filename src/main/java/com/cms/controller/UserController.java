@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Map;
 
 /**
@@ -17,6 +18,16 @@ public class UserController {
 
     @Autowired
     UserServiceImpl userService;
+
+    /**
+     * 找当前登录用户
+     * @param principal
+     * @return
+     */
+    @RequestMapping(value = "/myself", method = RequestMethod.GET)
+    public Map<String, Object> myself(Principal principal) {
+        return userService.myself(principal);
+    }
 
     /**
      *
@@ -59,7 +70,7 @@ public class UserController {
     }
 
     /**
-     * 恢复操作e
+     * 恢复操作
      * @param id
      */
     @RequestMapping(value = "/recovery/{id}", method = RequestMethod.PUT)
@@ -75,6 +86,15 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public void update(@PathVariable Long id, HttpServletRequest request) {
         userService.update(request, id);
+    }
+
+    /**
+     * 彻底删除
+     * @param id
+     */
+    @RequestMapping(value = "/destroy/{id}", method = RequestMethod.DELETE)
+    public void destroy(@PathVariable Long id) {
+        userService.destroy(id);
     }
 
 }

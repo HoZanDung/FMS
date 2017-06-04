@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -136,7 +135,7 @@ public abstract class BaseServiceImpl<M extends BaseModel,R extends BaseReposito
      */
     public void validator(M m) {
         MyValidation<M> validation = new MyValidation<M>();
-        validation.ValidatorDate(m);
+        validation.ValidatorData(m);
     }
 
 }

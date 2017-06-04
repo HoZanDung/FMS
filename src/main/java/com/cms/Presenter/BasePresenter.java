@@ -57,6 +57,10 @@ public abstract class BasePresenter<M extends BaseModel> {
         Map<String, Object> map = new LinkedHashMap<>();
         if (properties == null) {
             map = invokeUtil.getFieldsValue(m);
+        }else {
+            for (String property : properties) {
+                map.put(property, invokeUtil.getFieldValue(m, property));
+            }
         }
         return map;
     }
