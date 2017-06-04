@@ -24,7 +24,7 @@ public class UserPresenter extends BasePresenter<SysUser> {
 
     private String[] toUpdate = {"password", "email", "address", "phone", "avatar", "realname"};
 
-    private String[] toFind = {"id" ,"username", "email", "address", "phone", "avatar", "realname","roles"};
+    private String[] toFind = {"id" ,"username", "password" , "email", "address", "phone", "avatar", "realname","roles","status"};
 
 
     /**

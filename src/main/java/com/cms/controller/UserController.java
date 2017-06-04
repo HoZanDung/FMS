@@ -3,6 +3,7 @@ package com.cms.controller;
 import com.cms.service.Impl.UserServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +47,7 @@ public class UserController {
      * @return 分页查找所有用户信息
      */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Map index(@RequestParam(value = "page", defaultValue = "0") int page,
                      @RequestParam(value = "size", defaultValue = "10") int size) {
         return userService.index(page, size);

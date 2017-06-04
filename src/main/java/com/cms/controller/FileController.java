@@ -4,6 +4,7 @@ import com.cms.service.Impl.FileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +27,8 @@ public class FileController {
      * @param size
      * @return 分页查找所有内容信息
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Map index(@RequestParam(value = "page", defaultValue = "0") int page,
                      @RequestParam(value = "size", defaultValue = "10") int size) {
         return fileService.index(page, size);
