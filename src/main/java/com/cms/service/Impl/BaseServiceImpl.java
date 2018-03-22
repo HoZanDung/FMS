@@ -129,7 +129,7 @@ public abstract class BaseServiceImpl<M extends BaseModel,R extends BaseReposito
 
     /**
      * 对转换出来的实体进行数据验证
-     * 不会写!!!以后再说!!跳过!
+     *
      * @param m
      * @return
      */

@@ -47,17 +47,16 @@ public abstract class BasePresenter<M extends BaseModel> {
 
 
     /**
-     *
-     * @param m             实体类
-     * @param properties    转换出来的属性集合
-     * @param needDetail    是否需要设置Detail值
+     * @param m          实体类
+     * @param properties 转换出来的属性集合
+     * @param needDetail 是否需要设置Detail值
      * @return
      */
     public Map<String, Object> transform(M m, String[] properties, Boolean needDetail) {
         Map<String, Object> map = new LinkedHashMap<>();
         if (properties == null) {
             map = invokeUtil.getFieldsValue(m);
-        }else {
+        } else {
             for (String property : properties) {
                 map.put(property, invokeUtil.getFieldValue(m, property));
             }
@@ -67,7 +66,6 @@ public abstract class BasePresenter<M extends BaseModel> {
 
 
     /**
-     *
      * @param pages 需要分页的对象
      * @return
      */
@@ -75,9 +73,10 @@ public abstract class BasePresenter<M extends BaseModel> {
         Page<M> models = pages;
         LinkedHashMap metaData = new LinkedHashMap<>();
         LinkedHashMap pageInfo = new LinkedHashMap<>();
-        pageInfo.put("Current Page", pages.getNumber() + 1);
-        pageInfo.put("Total Pages", models.getTotalPages());
-        pageInfo.put("Total Elements", models.getTotalElements());
+        pageInfo.put("CurrentPage", pages.getNumber() + 1);
+        pageInfo.put("TotalPages", models.getTotalPages());
+        pageInfo.put("TotalElements", models.getTotalElements());
+        pageInfo.put("pageSize", models.getSize());
         metaData.put("pageInfo", pageInfo);
         List<Map> mList = new LinkedList<>();
         for (M model : models) {
@@ -91,15 +90,13 @@ public abstract class BasePresenter<M extends BaseModel> {
 
 
     /**
-     *
      * @param request
-     * @return 将request返回为对应的实体(未考虑参数不一的时候怎么办,初步想在前端限制参数必须与实体相符)
+     * @return 将request返回为对应的实体(未考虑参数不一的时候怎么办, 初步想在前端限制参数必须与实体相符)
      */
     public abstract M toCreate(HttpServletRequest request);
 
 
     /**
-     *
      * @param request
      * @param m
      * @return 将request返回为对应的实体
@@ -112,6 +109,7 @@ public abstract class BasePresenter<M extends BaseModel> {
      * 记录操作id和操作时间
      * 获取当前登录用户,并记录做出更新操作的用户信息
      * 如果找不到实体,记录创建该实体的用户信息
+     *
      * @param request
      * @param m
      */
@@ -136,6 +134,7 @@ public abstract class BasePresenter<M extends BaseModel> {
      * 记录操作id和操作时间
      * 获取当前登录用户,并记录做出更新操作的用户信息
      * 如果找不到实体,记录创建该实体的用户信息
+     *
      * @param request
      * @param m
      */

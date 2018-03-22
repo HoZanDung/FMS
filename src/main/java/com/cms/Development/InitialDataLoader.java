@@ -1,7 +1,9 @@
 package com.cms.Development;
 
+import com.cms.entity.SysDrug;
 import com.cms.entity.SysRole;
 import com.cms.entity.SysUser;
+import com.cms.repository.SysDrugRepository;
 import com.cms.repository.SysRoleRepository;
 import com.cms.repository.SysUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
     SysUserRepository userRepository;
     @Autowired
     SysRoleRepository roleRepository;
+    @Autowired
+    SysDrugRepository drugRepository;
 
 
     @Transactional
@@ -86,6 +90,36 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         sysUser_user.setRealname("何震东");
         sysUser_user.setRoles(sysRoles_user);
         userRepository.save(sysUser_user);
+
+        SysUser sysUser = userRepository.findOne(1L);
+
+        //Create drug
+        for (int i = 2; i <= 12; i++) {
+            String j = Integer.toString(i);
+            SysDrug sysDrug = new SysDrug();
+            sysDrug.setCreate_ip("0:0:0:0:0:0:0:1");
+            sysDrug.setUpdate_ip("0:0:0:0:0:0:0:1");
+            sysDrug.setCreate_time(new Date());
+            sysDrug.setUpdate_time(new Date());
+            sysDrug.setCreate_by(sysUser);
+            sysDrug.setUpdate_by(sysUser);
+            sysDrug.setName("药品" + j);
+            sysDrug.setType("类型" + j);
+            sysDrug.setIntroduce("介绍" + j);
+            sysDrug.setDrugbar("药品条形" + j);
+            sysDrug.setGenericName("药品通用名字" + j);
+            sysDrug.setPinyinCode("药品拼音码" + j);
+            sysDrug.setRetailPrice(Integer.toString(i));
+            sysDrug.setReplenishPrice(Integer.toString(i - 1));
+            sysDrug.setUnit("药品单位" + j);
+            sysDrug.setDosage("药品剂量" + j);
+            sysDrug.setOrigin("药品产地" + j);
+            sysDrug.setValidity("药品时效性" + j);
+            sysDrug.setQualityStandard("药品质量标准" + j);
+            sysDrug.setOperation("药品经营方式" + j);
+            sysDrug.setBatchNumber("药品批号" + j);
+            drugRepository.save(sysDrug);
+        }
 
         alreadySetup = true;
     }

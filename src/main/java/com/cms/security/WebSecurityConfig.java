@@ -1,5 +1,5 @@
 //package com.cms.security;
-
+//
 //import org.springframework.beans.factory.annotation.Configurable;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -47,4 +47,4 @@
 //        web.ignoring().antMatchers("/js/**", "/css/**", "/img/**", "/fonts/**", "/sass/**", "/**/favicon.ico");
 //    }
 //}
-
+//
