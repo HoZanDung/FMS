@@ -1,17 +1,28 @@
 package com.cms.controller;
 
+import com.cms.entity.StorageMain;
+import com.cms.repository.StorageMainRepository;
 import com.cms.repository.SysUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by HOZANDUNG on 17/5/4.
  */
-//@RestController
+@RestController
+@RequestMapping("/test")
 public class MainController {
 
     @Autowired
     SysUserRepository sysUserRepository;
+    @Autowired
+    StorageMainRepository storageMainRepository;
 
     public String testV(BindingResult result) {
         return "";
@@ -78,4 +89,11 @@ public class MainController {
 //        return "home";
 //    }
 
+    @RequestMapping(value = "/test")
+    public void test() {
+//        StorageMain storageMain = storageMainRepository.findOne(1L);
+//        Iterable<StorageMain> storageMains = storageMainRepository.findAll();
+        Page<StorageMain> storageMains = storageMainRepository.findAll(new PageRequest(0,10));
+        System.out.println("");
+    }
 }

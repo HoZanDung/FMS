@@ -1,13 +1,7 @@
 package com.cms.Development;
 
-import com.cms.entity.Supplier;
-import com.cms.entity.SysDrug;
-import com.cms.entity.SysRole;
-import com.cms.entity.SysUser;
-import com.cms.repository.SupplierRepository;
-import com.cms.repository.SysDrugRepository;
-import com.cms.repository.SysRoleRepository;
-import com.cms.repository.SysUserRepository;
+import com.cms.entity.*;
+import com.cms.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -33,6 +27,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
     SysDrugRepository drugRepository;
     @Autowired
     SupplierRepository supplierRepository;
+    @Autowired
+    StorageMainRepository storageMainRepository;
 
 
     @Transactional
@@ -146,6 +142,27 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
             supplier.setBankAccount("银行账户" + j);
             supplierRepository.save(supplier);
         }
+
+        //Create storageMain
+        for (int i = 2; i <= 10; i++) {
+            String j = Integer.toString(i);
+            StorageMain storageMain = new StorageMain();
+            storageMain.setCreate_ip("0:0:0:0:0:0:0:1");
+            storageMain.setUpdate_ip("0:0:0:0:0:0:0:1");
+            storageMain.setCreate_time(new Date());
+            storageMain.setUpdate_time(new Date());
+            storageMain.setCreate_by(sysUser);
+            storageMain.setUpdate_by(sysUser);
+            storageMain.setSpeciesAmount(j+"￥");
+            storageMain.setStorageAmount(j);
+            storageMain.setStorageAllPrice(j);
+            storageMain.setStorageDate("2018-04-" + j);
+            storageMain.setStorageStatus("1");
+            storageMain.setTransactor("经手人" + j);
+            storageMain.setSupplierNo(j);
+            storageMainRepository.save(storageMain);
+        }
+
 
         alreadySetup = true;
     }

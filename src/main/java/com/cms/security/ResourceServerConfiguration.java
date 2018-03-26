@@ -18,7 +18,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     private static final String RESOURCE_ID = "my_rest_api";
 
-    private static final String[] URLS = {"/users/**", "/file/**", "/drug/**","/supplier/**"};
+    private static final String[] URLS = {"/users/**", "/file/**", "/drug/**", "/supplier/**", "/storageMainController/**"};
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {

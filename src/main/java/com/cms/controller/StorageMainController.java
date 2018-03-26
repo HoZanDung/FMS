@@ -1,6 +1,7 @@
 package com.cms.controller;
 
 import com.cms.service.IStorageDetailService;
+import com.cms.service.IStorageMainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 public class StorageMainController {
 
     @Autowired
-    private IStorageDetailService storageDetailService;
+    private IStorageMainService storageMainService;
 
     /**
      * 分页查找种类药品进仓信息
@@ -21,10 +22,11 @@ public class StorageMainController {
      * @param size
      * @return
      */
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public Map index(@RequestParam(value = "page", defaultValue = "0") int page,
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
+    public Map index(@RequestParam(value = "page", defaultValue = "1") int page,
                      @RequestParam(value = "size", defaultValue = "10") int size) {
-        return storageDetailService.index(page, size);
+        page = page - 1;
+        return storageMainService.index(page, size);
     }
 
     /**
@@ -34,7 +36,7 @@ public class StorageMainController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void create(HttpServletRequest request) {
-        storageDetailService.create(request);
+        storageMainService.create(request);
     }
 
     /**
@@ -44,7 +46,7 @@ public class StorageMainController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
-        storageDetailService.delete(id);
+        storageMainService.delete(id);
     }
 
     /**
@@ -54,7 +56,7 @@ public class StorageMainController {
      */
     @RequestMapping(value = "/recovery/{id}", method = RequestMethod.PUT)
     public void recovery(@PathVariable Long id) {
-        storageDetailService.recovery(id);
+        storageMainService.recovery(id);
     }
 
     /**
@@ -65,7 +67,7 @@ public class StorageMainController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public void update(@PathVariable Long id, HttpServletRequest request) {
-        storageDetailService.update(request, id);
+        storageMainService.update(request, id);
     }
 
     /**
@@ -75,6 +77,6 @@ public class StorageMainController {
      */
     @RequestMapping(value = "/destroy/{id}", method = RequestMethod.DELETE)
     public void destroy(@PathVariable Long id) {
-        storageDetailService.destroy(id);
+        storageMainService.destroy(id);
     }
 }
