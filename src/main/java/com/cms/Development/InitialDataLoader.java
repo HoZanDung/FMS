@@ -1,8 +1,10 @@
 package com.cms.Development;
 
+import com.cms.entity.Supplier;
 import com.cms.entity.SysDrug;
 import com.cms.entity.SysRole;
 import com.cms.entity.SysUser;
+import com.cms.repository.SupplierRepository;
 import com.cms.repository.SysDrugRepository;
 import com.cms.repository.SysRoleRepository;
 import com.cms.repository.SysUserRepository;
@@ -29,6 +31,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
     SysRoleRepository roleRepository;
     @Autowired
     SysDrugRepository drugRepository;
+    @Autowired
+    SupplierRepository supplierRepository;
 
 
     @Transactional
@@ -119,6 +123,28 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
             sysDrug.setOperation("药品经营方式" + j);
             sysDrug.setBatchNumber("药品批号" + j);
             drugRepository.save(sysDrug);
+        }
+
+        //Create supplier
+        for (int i = 2; i <= 10; i++) {
+            String j = Integer.toString(i);
+            Supplier supplier = new Supplier();
+            supplier.setCreate_ip("0:0:0:0:0:0:0:1");
+            supplier.setUpdate_ip("0:0:0:0:0:0:0:1");
+            supplier.setCreate_time(new Date());
+            supplier.setUpdate_time(new Date());
+            supplier.setCreate_by(sysUser);
+            supplier.setUpdate_by(sysUser);
+            supplier.setName("供应商" + j);
+            supplier.setPinyinCode("供应商拼音码" + j);
+            supplier.setAddress("供应商地址" + j);
+            supplier.setArea("供应商地区" + j);
+            supplier.setZipCode("邮政编码" + j);
+            supplier.setPhone("1304803443" + j);
+            supplier.setContactPerson("联系人" + j);
+            supplier.setBank("银行" + j);
+            supplier.setBankAccount("银行账户" + j);
+            supplierRepository.save(supplier);
         }
 
         alreadySetup = true;

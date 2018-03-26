@@ -21,9 +21,10 @@ public class SupplierController {
      * @param size
      * @return
      */
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public Map index(@RequestParam(value = "page", defaultValue = "0") int page,
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
+    public Map index(@RequestParam(value = "page", defaultValue = "1") int page,
                      @RequestParam(value = "size", defaultValue = "10") int size) {
+        page = page - 1;
         return supplierService.index(page, size);
     }
 
