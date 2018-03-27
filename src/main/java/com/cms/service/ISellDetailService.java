@@ -9,6 +9,8 @@ public interface ISellDetailService {
 
     void create(HttpServletRequest request);
 
+    String createByString(HttpServletRequest request);
+
     void delete(Long id);
 
     void update(HttpServletRequest request, Long id);

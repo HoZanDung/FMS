@@ -36,8 +36,8 @@ public class SellDetailController {
      * @param request
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public void create(HttpServletRequest request) {
-        sellDetailService.create(request);
+    public String create(HttpServletRequest request) {
+        return sellDetailService.createByString(request);
     }
 
     /**
