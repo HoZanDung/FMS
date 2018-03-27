@@ -31,6 +31,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
     StorageMainRepository storageMainRepository;
     @Autowired
     StorageDetailRepository storageDetailRepository;
+    @Autowired
+    SellDetailRepository sellDetailRepository;
 
 
     @Transactional
@@ -184,6 +186,26 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
             storageDetail.setStorageAmounting(j);
             storageDetail.setStorageStatus("1");
             storageDetailRepository.save(storageDetail);
+        }
+
+        //Create sellDetail
+        for (int i = 2; i <= 10; i++) {
+            String j = Integer.toString(i);
+            SellDetail sellDetail = new SellDetail();
+            sellDetail.setCreate_ip("0:0:0:0:0:0:0:1");
+            sellDetail.setUpdate_ip("0:0:0:0:0:0:0:1");
+            sellDetail.setCreate_time(new Date());
+            sellDetail.setUpdate_time(new Date());
+            sellDetail.setCreate_by(sysUser);
+            sellDetail.setUpdate_by(sysUser);
+            sellDetail.setSellNo("流水号" + j);
+            sellDetail.setDrugNumber(j);
+            sellDetail.setSellCredentials("单据" + j);
+            sellDetail.setSellNumber(j);
+            sellDetail.setSellPrice(j + "$");
+            sellDetail.setSellDate("2018-03-" + j);
+            sellDetail.setRefundStatus("2");
+            sellDetailRepository.save(sellDetail);
         }
 
 
