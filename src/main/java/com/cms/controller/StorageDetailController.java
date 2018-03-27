@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/StorageDetailController")
+@RequestMapping("/storageDetailController")
 public class StorageDetailController {
 
     @Autowired
@@ -22,10 +22,11 @@ public class StorageDetailController {
      * @param size
      * @return
      */
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Map index(@RequestParam(value = "page", defaultValue = "0") int page,
+    public Map index(@RequestParam(value = "page", defaultValue = "1") int page,
                      @RequestParam(value = "size", defaultValue = "10") int size) {
+        page = page - 1;
         return storageDetailService.index(page, size);
     }
 

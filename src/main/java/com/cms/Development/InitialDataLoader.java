@@ -29,6 +29,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
     SupplierRepository supplierRepository;
     @Autowired
     StorageMainRepository storageMainRepository;
+    @Autowired
+    StorageDetailRepository storageDetailRepository;
 
 
     @Transactional
@@ -153,7 +155,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
             storageMain.setUpdate_time(new Date());
             storageMain.setCreate_by(sysUser);
             storageMain.setUpdate_by(sysUser);
-            storageMain.setSpeciesAmount(j+"￥");
+            storageMain.setSpeciesAmount(j + "￥");
             storageMain.setStorageAmount(j);
             storageMain.setStorageAllPrice(j);
             storageMain.setStorageDate("2018-04-" + j);
@@ -161,6 +163,27 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
             storageMain.setTransactor("经手人" + j);
             storageMain.setSupplierNo(j);
             storageMainRepository.save(storageMain);
+        }
+
+        //Create storageDetail
+        for (int i = 2; i <= 10; i++) {
+            String j = Integer.toString(i);
+            StorageDetail storageDetail = new StorageDetail();
+            storageDetail.setCreate_ip("0:0:0:0:0:0:0:1");
+            storageDetail.setUpdate_ip("0:0:0:0:0:0:0:1");
+            storageDetail.setCreate_time(new Date());
+            storageDetail.setUpdate_time(new Date());
+            storageDetail.setCreate_by(sysUser);
+            storageDetail.setUpdate_by(sysUser);
+            storageDetail.setDocumentNo(j + "￥");
+            storageDetail.setDrugNumber(j);
+            storageDetail.setStorageAmount(j);
+            storageDetail.setStorageUnitPrice(j);
+            storageDetail.setStorageAllPrice(j);
+            storageDetail.setStorageDate("2018-04-" + j);
+            storageDetail.setStorageAmounting(j);
+            storageDetail.setStorageStatus("1");
+            storageDetailRepository.save(storageDetail);
         }
 
 
