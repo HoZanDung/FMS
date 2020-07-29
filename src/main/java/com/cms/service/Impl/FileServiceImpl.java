@@ -24,12 +24,13 @@ import java.util.UUID;
  * Created by HOZANDUNG on 17/5/8.
  */
 @Service
-public class FileServiceImpl extends BaseServiceImpl<SysContent,SysContentRepository,FilePresenter>  implements IFileService {
+public class FileServiceImpl extends BaseServiceImpl<SysContent, SysContentRepository, FilePresenter> implements IFileService {
 
     @Value("${upload.file.path}")
     private String filePath;
 
-    @Autowired FilePresenter presenter;
+    @Autowired
+    FilePresenter presenter;
 
 
     @Override
@@ -61,9 +62,9 @@ public class FileServiceImpl extends BaseServiceImpl<SysContent,SysContentReposi
             file.transferTo(dest);
             //上传后将信息录入数据库
             SysContent content = presenter.toCreate(request);
-            content.setFile_path(filePath+fileName);
-            presenter.setCreateInfo(request,content);
-            save(request,content);
+            content.setFile_path(filePath + fileName);
+            presenter.setCreateInfo(request, content);
+            save(request, content);
         } catch (IllegalStateException e) {
             System.out.println("异常,还没写");
         } catch (IOException e) {

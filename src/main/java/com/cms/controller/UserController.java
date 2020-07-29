@@ -22,6 +22,7 @@ public class UserController {
 
     /**
      * 找当前登录用户
+     *
      * @param principal
      * @return
      */
@@ -31,22 +32,21 @@ public class UserController {
     }
 
     /**
-     *
      * @param id
      * @return 单个用户信息
      */
-    @RequestMapping(value = "/findOne/{id}", method = RequestMethod.GET)
-    public Map<String, Object> get(@PathVariable Long id) {
-        return userService.findOne(id);
+    @RequestMapping(value = "/findOne/{id}/{abc}", method = RequestMethod.GET)
+    public Map<String, Object> get(@PathVariable(value = "id") Long id, @PathVariable(value = "abc") Long abc) {
+        System.out.println(id + abc);
+        return null;
     }
 
     /**
-     *
      * @param page
      * @param size
      * @return 分页查找所有用户信息
      */
-    @RequestMapping(value = "/index",method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Map index(@RequestParam(value = "page", defaultValue = "0") int page,
                      @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -55,15 +55,17 @@ public class UserController {
 
     /**
      * 添加操作
+     *
      * @param request
      */
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void create(HttpServletRequest request) {
         userService.create(request);
     }
 
     /**
      * 删除操作
+     *
      * @param id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -73,6 +75,7 @@ public class UserController {
 
     /**
      * 恢复操作
+     *
      * @param id
      */
     @RequestMapping(value = "/recovery/{id}", method = RequestMethod.PUT)
@@ -82,6 +85,7 @@ public class UserController {
 
     /**
      * 更新操作
+     *
      * @param id
      * @param request
      */
@@ -92,6 +96,7 @@ public class UserController {
 
     /**
      * 彻底删除
+     *
      * @param id
      */
     @RequestMapping(value = "/destroy/{id}", method = RequestMethod.DELETE)

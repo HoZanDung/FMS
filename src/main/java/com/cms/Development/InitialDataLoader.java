@@ -35,6 +35,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
     SellDetailRepository sellDetailRepository;
 
 
+
+    @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         if (alreadySetup) return;

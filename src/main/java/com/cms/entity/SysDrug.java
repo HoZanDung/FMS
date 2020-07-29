@@ -102,6 +102,12 @@ public class SysDrug extends BaseEntity {
     @Column(name = "batchNumber")
     private String batchNumber;
 
+    /**
+     * 库存
+     */
+    @Column(name = "storageNumber")
+    private String storageNumber;
+
     public String getName() {
         return name;
     }
@@ -222,6 +228,14 @@ public class SysDrug extends BaseEntity {
         this.batchNumber = batchNumber;
     }
 
+    public String getStorageNumber() {
+        return storageNumber;
+    }
+
+    public void setStorageNumber(String storageNumber) {
+        this.storageNumber = storageNumber;
+    }
+
     @Override
     public String toString() {
         return "SysDrug{" +
@@ -240,6 +254,7 @@ public class SysDrug extends BaseEntity {
                 ", qualityStandard='" + qualityStandard + '\'' +
                 ", operation='" + operation + '\'' +
                 ", batchNumber='" + batchNumber + '\'' +
+                ", storageNumber='" + storageNumber + '\'' +
                 '}';
     }
 }

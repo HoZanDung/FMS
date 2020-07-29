@@ -22,7 +22,7 @@ public class DrugPresenter extends BasePresenter<SysDrug> {
     private String[] toFind = {"id", "name", "type", "introduce", "drugbar",
             "genericName", "pinyinCode", "retailPrice", "replenishPrice",
             "unit", "dosage", "origin", "validity",
-            "qualityStandard", "operation", "batchNumber", "status"};
+            "qualityStandard", "operation", "batchNumber", "storageNumber", "status"};
 
     @Override
     public Map objectToMap(SysDrug sysDrug) {

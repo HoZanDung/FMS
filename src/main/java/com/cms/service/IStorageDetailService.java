@@ -17,4 +17,6 @@ public interface IStorageDetailService {
 
     void recovery(Long id);
 
+    void createDrug(HttpServletRequest request);
+
 }

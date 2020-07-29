@@ -10,13 +10,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by HOZANDUNG on 17/5/4.
  */
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/openapi")
 public class MainController {
 
     @Autowired
@@ -89,11 +91,17 @@ public class MainController {
 //        return "home";
 //    }
 
-    @RequestMapping(value = "/test")
+    @RequestMapping(value = "/robots/process/")
     public void test() {
 //        StorageMain storageMain = storageMainRepository.findOne(1L);
 //        Iterable<StorageMain> storageMains = storageMainRepository.findAll();
-        Page<StorageMain> storageMains = storageMainRepository.findAll(new PageRequest(0,10));
-        System.out.println("");
+//        Page<StorageMain> storageMains = storageMainRepository.findAll(new PageRequest(0,10));
+//        System.out.println("");
+        List<String> list = new ArrayList<>(Arrays.asList("one", "two", "three", "four", "five"));
+        list.forEach(str -> {
+            if (str.length() < 3) {
+
+            }
+        });
     }
 }

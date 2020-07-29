@@ -3,8 +3,10 @@ package com.cms.service.Impl;
 import com.cms.Presenter.SellDetailPresenter;
 import com.cms.entity.SellDetail;
 import com.cms.entity.StorageDetail;
+import com.cms.entity.SysDrug;
 import com.cms.repository.SellDetailRepository;
 import com.cms.repository.StorageDetailRepository;
+import com.cms.repository.SysDrugRepository;
 import com.cms.service.ISellDetailService;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class SellDetailServiceImpl extends BaseServiceImpl<SellDetail, SellDetai
 
     @Resource
     private StorageDetailRepository storageDetailRepository;
+    @Resource
+    private SysDrugRepository drugRepository;
 
     /**
      * 重写创建方法实现业务关联
@@ -33,12 +37,12 @@ public class SellDetailServiceImpl extends BaseServiceImpl<SellDetail, SellDetai
         String sellNumber = m.getSellNumber();
         int sellNumber_int = Integer.parseInt(sellNumber);
         //根据药品编号找出相应的库存信息
-        StorageDetail storageDetail = storageDetailRepository.findByDrugNumber(drugNumber);
-        if (storageDetail == null || storageDetail.equals("")){
+        SysDrug sysDrug = drugRepository.findOne(Long.parseLong(drugNumber));
+        if (sysDrug == null || sysDrug.equals("")) {
             return "error";
         }
         //得到库存数量
-        String storageAmounting = storageDetail.getStorageAmounting();
+        String storageAmounting = sysDrug.getStorageNumber();
         int storageAmountint_int = Integer.parseInt(storageAmounting);
         //库存数量减少,如果库存数量不足,跳出
         storageAmountint_int = storageAmountint_int - sellNumber_int;
@@ -47,8 +51,8 @@ public class SellDetailServiceImpl extends BaseServiceImpl<SellDetail, SellDetai
         }
         //保存修改后的信息
         storageAmounting = String.valueOf(storageAmountint_int);
-        storageDetail.setStorageAmounting(storageAmounting);
-        storageDetailRepository.save(storageDetail);
+        sysDrug.setStorageNumber(storageAmounting);
+        drugRepository.save(sysDrug);
         save(request, m);
         return "yes";
     }
